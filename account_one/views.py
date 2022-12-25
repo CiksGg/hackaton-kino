@@ -1,3 +1,5 @@
+
+
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
@@ -40,15 +42,16 @@ def activate_view(request, activation_code):
 @api_view(['GET'])
 def user_detail(request, id):
     user = get_object_or_404(User, id=id)
-    
-
     return Response(UserSerializer(user).data, status=200)
+
+    
 
 
 def send_activation_code(email, activation_code):
     activation_url = f'localhost:8000/account/forgot-password-complete/{activation_code}'
     message = f"""Чтобы восстановить пароль, пройдите по данной ссылке: {activation_url}"""
     send_mail('Восстановление пароля', message, 'admin@admin.com',recipient_list=[email],)
+
 
 class ForgotPassword(APIView):
 
