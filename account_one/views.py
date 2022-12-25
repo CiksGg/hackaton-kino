@@ -44,6 +44,7 @@ def user_detail(request, id):
     user = get_object_or_404(User, id=id)
     return Response(UserSerializer(user).data, status=200)
 
+
     
 
 

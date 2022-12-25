@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from review.serializers import FavoriteSerializer
 
+from review.serializers import FavoriteSerializer
 from .models import User
 
 
@@ -24,7 +24,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         return email
 
     def create(self, validated_data):
-        return User.objects.create_nonactive_user(**validated_data)
+        return User.objects.create_user(**validated_data)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -76,21 +76,3 @@ class CreateNewPasswordSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
-
-
-
-
-
-from django import forms
-from account_one.tasks import send_feedback_email_task
-
-class FeedbackForm(forms.Form):
-    email = forms.EmailField(label="Email Address")
-    message = forms.CharField(
-        label="Message", widget=forms.Textarea(attrs={"rows": 5})
-    )
-
-    def send_email(self):
-        send_feedback_email_task.delay(
-            self.cleaned_data["email"], self.cleaned_data["message"]
-        )

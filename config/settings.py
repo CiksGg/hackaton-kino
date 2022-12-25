@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # apps
+    'chat',
     'main',
     'account_one',
     'review',
@@ -100,6 +101,7 @@ DATABASES = {
         'PASSWORD':config('DB_PASSWORD'),   #MYe6H79oiYETvbANvkyv
         'HOST': config('DB_HOST'),   #containers-us-west-66.railway.app
         'PORT': config('DB_PORT'),   #5936
+        
     }
 }
 
@@ -236,9 +238,4 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://deploy-production-59e4.up.railway.app'
 ]
-
-
-
-# Celery settings
-CELERY_BROKER_URL = "redis://localhost:6379"
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+APPEND_SLASH=False
